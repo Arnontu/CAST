@@ -1,0 +1,34 @@
+# Core
+torch>=2.0
+torchaudio>=2.0
+transformers>=4.40
+datasets>=2.18
+soundfile
+jiwer
+numpy
+tqdm
+jsonlines
+jinja2
+pydantic>=2
+
+# Whisper normalization
+openai-whisper
+whisper-normalizer
+
+# Stress detection — install from source (no PyPI package):
+#   git clone https://github.com/slp-rl/WhiStress.git
+#   cd WhiStress && pip install -r requirements.txt && python download_weights.py
+
+# Evaluation metrics
+evaluate
+
+# Dataset construction — text pipeline
+anthropic
+google-generativeai
+openai>=1.0
+
+# TTS backends (install only what you use)
+# chatterbox-tts       # pip install chatterbox-tts
+# kokoro               # pip install kokoro
+# CosyVoice            # install from source: https://github.com/FunAudioLLM/CosyVoice (see install.sh)
+# Qwen3-TTS            # install from source: https://github.com/QwenLM/Qwen3-TTS

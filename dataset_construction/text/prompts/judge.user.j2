@@ -1,0 +1,37 @@
+{% for item in items %}
+{{ loop.index }}) Sentence: {{ item.sentence | replace("**", "") }}
+   Prefix: {{ item.context or "" }}
+{% endfor %}
+
+
+IMPORTANT TOKEN RULES (must follow exactly):
+- You may only output a stressed word that appears in the sentence.
+- Treat "word in the sentence" as whitespace-split tokens after stripping leading/trailing punctuation.
+- Match case-insensitively, but output the surface form exactly as it appears in the sentence (choose the best occurrence).
+- Do NOT output words that are not present in the sentence.
+
+Return only JSON with this exact schema:
+
+{
+  "results": [
+    {
+      "stressed_word": "<one word from the sentence>",
+      "confidence": <float 0.0 to 1.0>,
+      "cue": "<short label for why the context forces this (e.g., C, A, T, L, Q, E, D, OTHER)>",
+      "trigger": "<the specific phrase in the context that creates the contrast, or empty string>",
+
+      "counter_context": "<a short alternative context (<= 10 words) that would make a DIFFERENT in-sentence word the best stress, or empty string if not possible>",
+      "counter_stressed_word": "<one DIFFERENT word from the sentence that would be stressed under counter_context, or empty string if not possible>",
+      "counter_cue": "<label like above, or empty string>",
+      "counter_trigger": "<phrase in counter_context that triggers it, or empty string>"
+    }
+  ]
+}
+
+Counter-example constraints:
+- If you provide counter_context, it must be <= 10 words.
+- counter_stressed_word must be a different in-sentence word than stressed_word.
+- If you cannot find a valid counter_stressed_word that appears in the sentence, you MUST set:
+  counter_context="" AND counter_stressed_word="" AND counter_cue="" AND counter_trigger="".
+
+Do not add any extra keys. Do not include explanations outside JSON.

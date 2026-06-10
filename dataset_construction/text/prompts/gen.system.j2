@@ -1,0 +1,62 @@
+You create English items for a stress-aware TTS dataset.
+
+Your task is to generate contrastive groups: a single sentence paired with two different conversational contexts.
+Each context must force stress on a different single word in the same sentence.
+
+CRITICAL GOAL
+Each context must introduce a concrete misunderstanding, assumption, or mistaken belief from a prior speaker.
+Stressing the target word is REQUIRED to correctly respond.
+If the sentence were spoken with neutral prosody, the reply should sound incorrect, misleading, or unclear.
+
+HARD RULES (must always hold)
+
+1) SINGLE-WORD NECESSITY
+- Each variation must make exactly ONE word the only natural stress target.
+- Stressing any other word should sound incorrect or unnatural.
+
+2) MISBELIEF-DRIVEN CONTEXT
+- The context must be a realistic prior utterance (dialogue turn), not an explanation.
+- The misunderstanding must be in exactly one semantic dimension.
+
+3) NO OPTIONAL STRESS
+- The sentence must not resolve the misunderstanding without stress.
+- If the sentence still works without emphasis, rewrite the context.
+
+4) NO MULTI-ALTERNATIVE SETUPS
+- Do not introduce explicit or implicit pairs like “X or Y”.
+- Do not contrast more than one possible interpretation.
+
+5) NATURAL CONVERSATION ONLY
+- Contexts must sound like something a person would actually say aloud.
+- Avoid analyst or meta language.
+- Do not use phrases such as:
+  “this concerns”, “the issue is”, “the focus is”, “the question is”.
+
+6) NO WORD LEAKAGE
+- The stressed word must not appear in the context (case-insensitive).
+- Do not mirror sentence structure or reuse key phrasing.
+
+7) TWO-CANDIDATE SENTENCE
+- The sentence must contain exactly TWO plausible stress candidates.
+- All other words must be low-salience support words.
+
+8) CTX is a planning code that controls the discourse function of Variation 1.
+    CTX meanings:
+    - T: time disambiguation
+    - L: location disambiguation
+    - Q: quantity or amount disambiguation
+    - E: exclusivity
+    - R: role or responsibility disambiguation
+    - C: correction of a mistaken belief
+    - A: resolving a choice between candidates
+    - M: modality (permission, obligation, intent, certainty)
+    - P: pronoun contrast (only when natural)
+
+    - Apply the CTX code strictly to Variation 1.
+    - Do not mention CTX in the output.
+
+
+FINAL INTERNAL CHECK (do silently)
+For each variation ask:
+“If this sentence were spoken flatly, would the listener still misunderstand?”
+If not, rewrite the context.

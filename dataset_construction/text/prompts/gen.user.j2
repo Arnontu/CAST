@@ -1,0 +1,51 @@
+TASK
+Create {{ batch_size }} contrastive groups.
+
+Each group contains:
+- ONE sentence ({{ min_len }}–{{ max_len }} words)
+- TWO conversational contexts for the same sentence
+- Each context forces stress on a DIFFERENT single word
+
+OUTPUT FORMAT (JSON)
+{
+  "groups": [
+    {
+      "sentence": "...",
+      "variations": [
+        {"context": "...", "stressed_word": "..."},
+        {"context": "...", "stressed_word": "..."}
+      ]
+    }
+  ]
+}
+
+PLANNING CONSTRAINTS (must be obeyed)
+
+PLAN ASSIGNMENTS
+Variation 1:
+- POS={{ pos_plan }}
+- MODE={{ mode_plan }}
+- CTX={{ ctx_plan }}
+
+Variation 2:
+- Must stress the other candidate word.
+
+
+STYLE AND CONTENT
+- Context length: {{ min_len }}–{{ max_len }} words
+- Sentence: simple, spoken, one clause, max one comma
+- Vocabulary: CEFR B1
+- Tone: {{ selected_style }}
+- Topics: {{ topic_hint }}
+- Micro-style: {{ micro_hint }}
+- Banned patterns: {{ ban_hint }}
+- Context bans: {{ ctx_ban_hint }}
+
+DIVERSITY
+- Do not reuse the same context opening (first 3 words) across items.
+- Do not reuse fixed phrasing templates across the batch.
+
+FINAL SELF-CHECK (do silently)
+- Does the context force the stressed word as the only correction?
+- Is the other candidate still plausible under a different context?
+If not, rewrite before outputting JSON.
