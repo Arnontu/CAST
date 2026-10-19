@@ -246,3 +246,14 @@ This is an extended version of the benchmark pipeline that adds audio synthesis,
   year={2026}
 }
 ```
+
+---
+
+## License
+
+- **Code** is licensed under the [Apache License 2.0](LICENSE).
+- **Data** (all data released as part of CAST) is licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](data/LICENSE).
+
+If you use CAST in your research, please cite the paper above.
+
+**Data provenance:** The benchmark text was generated with the assistance of LLMs and subsequently validated. The synthetic speech corpus was generated using OpenAI TTS. All audio in the corpus is AI-generated and does not contain recordings of human speakers.
